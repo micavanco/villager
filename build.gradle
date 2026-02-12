@@ -6,6 +6,8 @@ group = 'com.michaelolech'
 version = '1.0-SNAPSHOT'
 def lwjglVersion = '3.3.6'
 def lwjglNatives = 'natives-windows'
+def jomlVersion = '1.10.8'
+def jomlPrimitivesVersion = '1.10.0'
 
 repositories {
     mavenCentral()
@@ -16,6 +18,9 @@ dependencies {
     implementation 'org.lwjgl:lwjgl'
     implementation 'org.lwjgl:lwjgl-opengl'
     implementation 'org.lwjgl:lwjgl-glfw'
+
+    implementation "org.joml:joml:${jomlVersion}"
+    implementation "org.joml:joml-primitives:${jomlPrimitivesVersion}"
 
     runtimeOnly name: 'lwjgl', group: 'org.lwjgl', version: lwjglVersion, classifier: lwjglNatives
     runtimeOnly name: 'lwjgl-opengl', group: 'org.lwjgl', version: lwjglVersion, classifier: lwjglNatives
