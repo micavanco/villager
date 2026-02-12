@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.michaelolech'
+version = '1.0-SNAPSHOT'
+def lwjglVersion = '3.3.6'
+def lwjglNatives = 'natives-windows'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(platform("org.lwjgl:lwjgl-bom:$lwjglVersion"))
+    implementation 'org.lwjgl:lwjgl'
+    implementation 'org.lwjgl:lwjgl-opengl'
+    implementation 'org.lwjgl:lwjgl-glfw'
+
+    runtimeOnly name: 'lwjgl', group: 'org.lwjgl', version: lwjglVersion, classifier: lwjglNatives
+    runtimeOnly name: 'lwjgl-opengl', group: 'org.lwjgl', version: lwjglVersion, classifier: lwjglNatives
+    runtimeOnly name: 'lwjgl-glfw', group: 'org.lwjgl', version: lwjglVersion, classifier: lwjglNatives
+
+    testImplementation platform("org.junit:junit-bom:5.10.0")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+}
+
+test {
+    useJUnitPlatform()
+}
