@@ -171,7 +171,7 @@ public class WindowManager {
         glfwSetErrorCallback(null).free();
     }
 
-    private void setClearColour(float r, float g, float b, float a) {
+    public void setClearColour(float r, float g, float b, float a) {
         glClearColor(r, g, b, a);
     }
 

@@ -15,11 +15,14 @@ public class EngineManager {
 
     private WindowManager window;
     private GLFWErrorCallback errorCallback;
+    private ILogic gameLogic;
 
     private void init() throws Exception {
         GLFW.glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
         window = Launcher.getWindow();
+        gameLogic = Launcher.getGame();
         window.init();
+        gameLogic.init();
     }
 
     public void start() throws Exception {
@@ -86,19 +89,21 @@ public class EngineManager {
     }
 
     public void input() {
-
+        gameLogic.input();
     }
 
     public void render() {
-
+        gameLogic.render();
+        window.update();
     }
 
     public void update() {
-        window.update();
+        gameLogic.update();
     }
 
     public void cleanup() {
         window.cleanup();
+        gameLogic.cleanup();
         errorCallback.free();
         GLFW.glfwTerminate();
     }
