@@ -26,16 +26,22 @@ public class TestGame implements ILogic {
 
     @Override
     public void init() throws Exception {
-        float[] vertices = new float[]{
-                -2.1f, 2.1f, 0f,
-                -2.1f, -2.1f, 0f,
-                2.1f, -2.1f, 0f,
-                2.1f, -2.1f, 0f,
-                2.5f, 2.5f, 0f,
-                -2.5f, 2.5f, 0f,
+        renderer.init();
+        float[] vertices = {
+                -0.5f, 0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                -0.5f, 0.5f, 0f
         };
 
-        model = loader.loadObject(vertices);
+        int[] indices = new int[] {
+                0, 1, 3,
+                3, 1, 2
+        };
+
+        model = loader.loadObject(vertices, indices);
     }
 
     @Override
