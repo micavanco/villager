@@ -1,18 +1,47 @@
 package com.michaelolech.core;
 
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.system.MemoryStack;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShaderManager {
     private final int programID;
     private int vertexShaderID;
     private int fragmentShaderID;
 
+    private final Map<String, Integer> uniformLocations;
+
     public ShaderManager() throws Exception {
         this.programID = GL20.glCreateProgram();
         if (programID == 0) {
             throw new Exception("Could not create program");
         }
+
+        uniformLocations = new HashMap<>();
+    }
+
+    public void createUniform(String uniformName) throws Exception {
+        int location = GL20.glGetUniformLocation(programID, uniformName);
+
+        if (location < 0) {
+            throw new Exception("Could not get uniform " + uniformName);
+        }
+
+        uniformLocations.put(uniformName, location);
+    }
+
+    public void setUniform(String uniformName, Matrix4f value) {
+        try(MemoryStack stack = MemoryStack.stackPush()) {
+            GL20.glUniformMatrix4fv(uniformLocations.get(uniformName), false, value.get(stack.mallocFloat(16)));
+        }
+    }
+
+    public void setUniform(String uniformName, int value) {
+        GL20.glUniform1i(uniformLocations.get(uniformName), value);
     }
 
     public void createVertexShader(String shaderCode) throws Exception {
